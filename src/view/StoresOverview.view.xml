@@ -1,0 +1,60 @@
+<mvc:View
+	controllerName="dmitry.buravkin.controller.StoresOverview"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f">
+
+	<f:DynamicPage class="sapUiNoContentPadding" id="dynamicPageId" showFooter="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>StoresOverviewTitle}"/>
+				</f:heading>
+				<f:breadcrumbs>
+					<Breadcrumbs>
+						<Link text="{i18n>StoresOverviewLink}"/>
+					</Breadcrumbs>
+				</f:breadcrumbs>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<SearchField placeholder="{i18n>SearchPlaceholder}" search="onStoreSearch"/>
+			</f:DynamicPageHeader>
+		</f:header>
+
+		<f:content>
+			<Table id="StoresTable" items="{odata>/Stores}">
+				<columns>
+					<Column></Column>
+					<Column hAlign="End" vAlign="Top"></Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active" press="onOpenPersonStoreDetails">
+							<VBox class="sapUiTinyMarginTopBottom">
+								<Label design="Bold" text="{odata>Name}"/>
+								<Text maxLines="1" class="sapUiSmallMarginTop" text="{odata>Address}"/>
+							</VBox>
+							<VBox class="sapUiTinyMarginTopBottom">
+								<Label design="Bold" text="{odata>FloorArea}"/>
+								<Text text="{i18n>MeasureArea}"/>
+							</VBox>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button 
+					class="sapUiTinyMarginEnd" 
+					icon="sap-icon://add" 
+					type="Ghost" 
+					text="{i18n>CreateBtn}"
+					press="onOpenStoreDialog"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

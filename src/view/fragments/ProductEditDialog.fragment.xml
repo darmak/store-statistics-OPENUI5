@@ -1,0 +1,132 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core" >
+	<Dialog id="FormProductDialog" title="{i18n>ProductEditDialogTitle}">
+		<f:SimpleForm
+			maxContainerCols="1"
+			layout="ResponsiveGridLayout"
+			labelSpanL="12"
+			labelSpanM="12"
+			emptySpanL="0"
+			emptySpanM="0"
+			columnsL="1"
+			columnsM="1">
+			<f:content>
+				<Label required="true" text="{i18n>ProductDialogNameLabel}"/>
+				<Input 
+                    change="onChange" 
+                    fieldGroupIds="productEditInputs" 
+                    placeholder="{i18n>ProductDialogNamePlaceholder}" 
+                    value="{
+                        path: 'Name',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 1,
+                            maxLength: 100
+                        }
+                    }"/>
+				<Label required="true" text="{i18n>ProductDialogPriceLabel}"/>
+                <HBox alignItems="Center">
+                    <Input 
+                        change="onChange" 
+                        required="true" 
+                        fieldGroupIds="productEditInputs" placeholder="{i18n>ProductDialogPricePlaceholder}" 
+                        value="{
+                        path: 'Price',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 1,
+                            maxLength: 100
+                            }
+                        }">
+                        <layoutData>
+                            <FlexItemData growFactor="1"/>
+                        </layoutData>
+                    </Input>
+                    <Text class="sapUiTinyMarginBegin" text="USD"/>
+                </HBox>
+
+				<Label required="true" text="{i18n>ProductDialogSpecsLabel}"/>
+				<Input 
+                    change="onChange" 
+                    fieldGroupIds="productEditInputs" 
+                    placeholder="{i18n>ProductDialogSpecsPlaceholder}" 
+                    value="{
+                        path: 'Specs',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 1,
+                            maxLength: 1000
+                        }
+                    }"/>
+				<Label required="true" text="{i18n>ProductDialogRatingLabel}"/>
+				<Input 
+                    change="onChange" 
+                    fieldGroupIds="productEditInputs" 
+                    placeholder="{i18n>ProductDialogRatingPlaceholder}" 
+                    value="{
+                        path: 'Rating',
+                        type: 'sap.ui.model.type.Integer',
+                        constraints: {
+                            minimum: 1,
+                            maximum: 5
+                        }
+                    }"/>
+                <Label required="true" text="{i18n>ProductDialogSupplierInfoLabel}"/>
+				<Input 
+                    change="onChange" 
+                    fieldGroupIds="productEditInputs" 
+                    placeholder="{i18n>ProductDialogSupplierInfoPlaceholder}" 
+                    value="{
+                        path: 'SupplierInfo',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 1,
+                            maxLength: 1000
+                        }
+                    }"/>
+                <Label required="true" text="{i18n>ProductDialogMadeInLabel}"/>
+				<Input 
+                    change="onChange" 
+                    fieldGroupIds="productEditInputs" 
+                    placeholder="{i18n>ProductDialogMadeInPlaceholder}" 
+                    value="{
+                        path: 'MadeIn',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 1,
+                            maxLength: 100
+                        }
+                    }"/>
+                <Label required="true" text="{i18n>ProductDialogCompanyNameLabel}"/>
+				<Input 
+                    change="onChange" 
+                    fieldGroupIds="productEditInputs" 
+                    placeholder="{i18n>ProductDialogCompanyNamePlaceholder}" 
+                    value="{
+                        path: 'ProductionCompanyName',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 1,
+                            maxLength: 100
+                        }
+                    }"/>
+                <Label required="true" text="{i18n>ProductDialogStatusLabel}"/>
+                <Select 
+                    selectedKey="{Status}"
+                    required="true"
+                    forceSelection="false">
+                    <core:Item key="OK" text="{i18n>StatusOk}" />
+                    <core:Item key="STORAGE" text="{i18n>StatusStorage}" />
+                    <core:Item key="OUT_OF_STOCK" text="{i18n>StatusOutOfStock}" />
+                </Select>
+			</f:content>
+		</f:SimpleForm>
+
+		<buttons>
+            <Button press="onSaveChangePress" type="Ghost" text="{i18n>ProductEditDialogBtn}"/>
+			<Button press="onCancelChangePress" text="{i18n>CloseBtn}"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

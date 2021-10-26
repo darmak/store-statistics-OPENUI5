@@ -1,0 +1,145 @@
+<mvc:View
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+	controllerName="dmitry.buravkin.controller.ProductDetails">
+
+	<f:DynamicPage class="sapUiNoContentPadding"  id="dynamicPageId" showFooter="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ProductDetailsTitle} ({odata>Name})"/>
+				</f:heading>
+				<f:breadcrumbs>
+					<Breadcrumbs>
+						<Link press="onNavToBackStoreList" text="{i18n>StoresOverviewLink}" />
+						<Link press="onNavToBackStoreDetails" text="{i18n>StoreDetailsLink}" />
+						<Link text="{i18n>ProductDetailsLink}"/>
+					</Breadcrumbs>
+				</f:breadcrumbs>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<form:SimpleForm
+                    maxContainerCols="3"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    labelSpanXL="12"
+                    labelSpanL="12"
+                    labelSpanM="12"
+                    labelSpanS="12"
+                    adjustLabelSpan="true"
+                    emptySpanXL="6"
+                    emptySpanL="4"
+                    emptySpanM="0"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="true">
+                    <form:content>
+                        <VBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                class="sapUiTinyMarginBottom" 
+                                text="{i18n>ProductDetailsHeaderPrice}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" text="{odata>Price}"/>
+                            </HBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                class="sapUiTinyMarginBottom" 
+                                text="{i18n>ProductDetailsHeaderRating}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" text="{odata>Rating}"/>
+                            </HBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                class="sapUiTinyMarginBottom" 
+                                text="{i18n>ProductDetailsHeaderEstablishedDate}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" text=""/>
+                            </HBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                class="sapUiTinyMarginBottom" 
+                                text="{i18n>ProductDetailsHeaderMadeIn}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" text="{odata>MadeIn}"/>
+                            </HBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                class="sapUiTinyMarginBottom" 
+                                text="{i18n>ProductDetailsHeaderCompanyName}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" text="{odata>ProductionCompanyName}"/>
+                            </HBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                text="{i18n>ProductDetailsHeaderStatus}:" 
+                                design="Bold"/>
+                                <ObjectStatus
+                                    class="sapUiTinyMarginBegin"
+                                    text="{path: 'odata>Status', formatter: '.productStatusTextFormatter'}"
+                                    inverted="true"
+                                    active="true"
+                                    state="{= ${odata>Status} === 'OK' ? 'Indication04' : 
+                                    ${odata>Status} === 'STORAGE' ? 'Indication03' : 'Indication02'}"/>
+                            </HBox>
+                            <HBox class="sapUiTinyMarginBottom">
+                                <Label 
+                                text="{i18n>ProductDetailsHeaderSpecs}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" maxLines="2" text="{odata>Specs}"/>
+                            </HBox>
+                            <HBox>
+                                <Label  
+                                text="{i18n>ProductDetailsHeaderSupplierInfo}:" 
+                                design="Bold"/>
+                                <Text class="sapUiTinyMarginBegin" maxLines="2" text="{odata>SupplierInfo}"/>
+                            </HBox>
+                        </VBox>
+                    </form:content>
+                </form:SimpleForm>
+			</f:DynamicPageHeader>
+		</f:header>
+
+		<f:content>
+			<VBox class="sapUiTinyMarginTop sapUiSmallMarginBeginEnd">
+				<HBox alignItems="Center">
+					<Label class="sapUiTinyMarginEnd" text="{i18n>ProductDetailsAuthorName}:"/>
+					<Input id="authorName" width="12rem" placeholder="{i18n>ProductDetailsAuthorNamePlaceholder}"/>
+					<Label class="sapUiTinyMarginBegin sapUiTinyMarginEnd" text="{i18n>ProductDetailsRating}:"/>
+					<RatingIndicator id="productReating" value="0"/>
+				</HBox>
+				<FeedInput 
+                    id="messageInput" 
+                    post="onPost" 
+                    placeholder="{i18n>ProductDetailsRevocation}" 
+                    class="sapUiTinyMarginTop" 
+                    icon="sap-icon://customer"/>
+				<List
+                    id="productCommentsContainer"
+                    items="{odata>/ProductComments}"
+					showSeparators="Inner">
+					<FeedListItem
+						sender="{odata>Author}"
+						icon="sap-icon://customer"
+						info="{i18n>ProductDetailsRevocationRating}: {odata>Rating}"
+						timestamp="{
+                            path: 'odata>Posted',
+                            type: 'sap.ui.model.type.Date',
+                            formatOptions: { style: 'medium'}
+                        }"
+						text="{odata>Message}"
+						convertLinksToAnchorTags="All"/>
+				</List>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
